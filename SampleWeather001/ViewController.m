@@ -39,44 +39,15 @@
 
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
-    //self.locationManager.delegate = self;
+    self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
     
-    float Lat = self.locationManager.location.coordinate.latitude;
-    float Long = self.locationManager.location.coordinate.longitude;
+    Lat = self.locationManager.location.coordinate.latitude;
+    Long = self.locationManager.location.coordinate.longitude;
+//
     NSLog(@"Lat : %f  Long : %f",Lat,Long);
     
-        WeatherService *weatherService = [[WeatherService alloc] init];
-        [weatherService getWeeklyWeather:Lat longitude:Long completionBlock:^(NSArray * weatherData,NSString* locInfo) {
-            dayTempArray = weatherData;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                float count = 0.0;
-                
-                for (Weather* day in weatherData) {
-                    DailyForecastBlock *block = [[DailyForecastBlock alloc] initWithFrame:CGRectMake(100 * count, 0, 100, self.scrollviewHeightConstraint.constant)];
-                    block.delegate = self;
-                    self.locationName.text = locInfo;
-                    
-                    if([[NSCalendar currentCalendar] isDateInToday:day.dateOfForecast]) {
-                        [block configureTodaysBlock:day];
-                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                        [dateFormatter setDateFormat:@"EEEE"];
-                        self.weekDayName.text = [[dateFormatter stringFromDate:day.dateOfForecast] uppercaseString];
-                        self.temp.text = [NSString stringWithFormat:@"%d°", day.temperatureDay];
-                        self.condition.text = [day.condition uppercaseString];
-                        self.icon.image = [day getWeatherImageForCurrentCondition];
-                    }
-                    else {
-                        [block configureBlock:day index:count];
-                    }
-                    [self.weeklyForecastScollview addSubview:block];
-                    
-                    count++;
-                }
-            });
-            
-        }];
 }
 
 - (void)passDataToFirst:(int)selValue{
@@ -93,7 +64,83 @@
 - (void)viewWillLayoutSubviews {
     [self.weeklyForecastScollview setContentSize:CGSizeMake(100 * 7, CGRectGetHeight(self.weeklyForecastScollview.frame))];
 }
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Title" message:@"Failed to Get Your Location" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    CLLocation *currentLocation = newLocation;
+    
+    if (currentLocation != nil) {
+        textDataLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        textDataLon = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        Lat = [textDataLat floatValue];
+        Long = [textDataLon floatValue];
+        NSLog(@"Lat value: %f", Lat);
+        NSLog(@"Lat value: %f", Long);
+       
+        
+        if (Lat && Long == 0.000000)
+        {
+            [self passLatandLong];
+        }
+        else
+        {
+            static dispatch_once_t once;
+            dispatch_once(&once, ^ {
+                [self passLatandLong];
+            });
+        }
+    }
+    
+}
+
+-(void)passLatandLong
+{
+    
+    WeatherService *weatherService = [[WeatherService alloc] init];
+    [weatherService getWeeklyWeather:Lat longitude:Long completionBlock:^(NSArray * weatherData,NSString* locInfo) {
+        dayTempArray = weatherData;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            float count = 0.0;
+            
+            for (Weather* day in weatherData) {
+                DailyForecastBlock *block = [[DailyForecastBlock alloc] initWithFrame:CGRectMake(100 * count, 0, 100, self.scrollviewHeightConstraint.constant)];
+                block.delegate = self;
+                self.locationName.text = locInfo;
+                
+                if([[NSCalendar currentCalendar] isDateInToday:day.dateOfForecast]) {
+                    [block configureTodaysBlock:day];
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"EEEE"];
+                    self.weekDayName.text = [[dateFormatter stringFromDate:day.dateOfForecast] uppercaseString];
+                    self.temp.text = [NSString stringWithFormat:@"%d°", day.temperatureDay];
+                    self.condition.text = [day.condition uppercaseString];
+                    self.icon.image = [day getWeatherImageForCurrentCondition];
+                }
+                else {
+                    [block configureBlock:day index:count];
+                }
+                [self.weeklyForecastScollview addSubview:block];
+                
+                count++;
+            }
+        });
+        
+    }];
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

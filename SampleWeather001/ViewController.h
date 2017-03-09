@@ -12,7 +12,8 @@
 
 @interface ViewController : UIViewController<PassData,CLLocationManagerDelegate>
 {
-    
+    float Lat;
+    float Long;
 }
 @property(strong,nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSArray* dayTempArray;
