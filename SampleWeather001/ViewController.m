@@ -87,15 +87,30 @@
         textDataLon = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
         Lat = [textDataLat floatValue];
         Long = [textDataLon floatValue];
-        NSLog(@"Lat value: %f", Lat);
-        NSLog(@"Lat value: %f", Long);
+        NSLog(@"New Loc value: %@", newLocation);
+        NSLog(@"Old Loc value: %@", oldLocation);
        
+        NSLog(@"New Lat value: %f", Lat);
+        NSLog(@"New lon value: %f", Long);
+        
+        CLLocationDistance distance = [currentLocation distanceFromLocation:oldLocation];
+        NSString *miles =[NSString stringWithFormat:@"%.1fmi",(distance/1609.344)];
+        float milesvalue = [miles floatValue];
+
+        NSLog(@"Calculated Miles %f", milesvalue);
+
+
         
         if (Lat && Long == 0.000000)
         {
             [self passLatandLong];
         }
-        else
+        else if(milesvalue >6.2)
+        {
+            [self passLatandLong];
+
+        }
+            else
         {
             static dispatch_once_t once;
             dispatch_once(&once, ^ {

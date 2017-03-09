@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleWeather001/ViewController.m"
-            timestampString = "510776940.799635"
+            timestampString = "510779286.348165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "-passLatandLong"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,45 +218,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleWeather001/ViewController.m"
-            timestampString = "510776939.951723"
+            timestampString = "510779257.943041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController locationManager:didUpdateToLocation:fromLocation:]"
-                  moduleName = "Weather"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sagar/Desktop/WeatherApp/SampleWeather001/ViewController.m"
-                  timestampString = "510776941.81156"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "811">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__67-[ViewController locationManager:didUpdateToLocation:fromLocation:]_block_invoke"
-                  moduleName = "Weather"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sagar/Desktop/WeatherApp/SampleWeather001/ViewController.m"
-                  timestampString = "510776941.811782"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -266,11 +234,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleWeather001/ViewController.m"
-            timestampString = "510776967.906415"
+            timestampString = "510779286.348165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SampleWeather001/ViewController.m"
+            timestampString = "510779257.943041"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
             landmarkType = "5">
          </BreakpointContent>
