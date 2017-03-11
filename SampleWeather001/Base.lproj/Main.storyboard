@@ -99,8 +99,36 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFb-dx-Ohd">
+                                        <rect key="frame" x="575" y="116" width="82" height="71"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90I-Nt-1va">
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="71"/>
+                                                <color key="backgroundColor" red="0.2457577329" green="0.72030508329999998" blue="0.84747852000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Button" image="navArrowLeft"/>
+                                                <connections>
+                                                    <action selector="expandGuideViewAction:" destination="3vD-Hy-P4m" eventType="touchUpInside" id="2mj-kc-xgc"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVf-DE-7ZG">
+                                                <rect key="frame" x="30" y="12" width="46" height="47"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" backgroundImage="AddSy"/>
+                                                <connections>
+                                                    <action selector="openAlertView:" destination="3vD-Hy-P4m" eventType="touchUpInside" id="HIh-08-Bng"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.18620240299999999" green="0.4352403547" blue="0.65834340469999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="82" id="PVN-TS-aPH"/>
+                                            <constraint firstAttribute="height" constant="71" id="nOh-ge-Wpm"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="aFb-dx-Ohd" firstAttribute="centerY" secondItem="y5D-9V-luH" secondAttribute="centerY" constant="27.5" id="8vm-gY-uzl"/>
+                                    <constraint firstAttribute="trailing" secondItem="aFb-dx-Ohd" secondAttribute="trailing" constant="-57" id="B0u-sx-cC3"/>
                                     <constraint firstAttribute="centerY" secondItem="h8U-0C-4u7" secondAttribute="centerY" id="ZvI-HI-68g"/>
                                     <constraint firstAttribute="centerX" secondItem="h8U-0C-4u7" secondAttribute="centerX" id="kIU-LE-mA0"/>
                                 </constraints>
@@ -126,10 +154,13 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="addLocationView" destination="aFb-dx-Ohd" id="Ych-qp-BNL"/>
                         <outlet property="condition" destination="jv2-Fk-00j" id="OZ7-0S-rJi"/>
                         <outlet property="icon" destination="y5D-9V-luH" id="bQZ-uk-W1B"/>
                         <outlet property="locationName" destination="E9k-FC-PIb" id="cf8-ji-yUG"/>
+                        <outlet property="myTempScreenView" destination="Rhb-gp-0Xu" id="jYh-T3-tEF"/>
                         <outlet property="scrollviewHeightConstraint" destination="JmF-o0-xlm" id="LWb-EE-gk9"/>
+                        <outlet property="swipeViewTrailingConstraint" destination="B0u-sx-cC3" id="PDr-Wc-p6F"/>
                         <outlet property="temp" destination="hl3-H1-kMj" id="6qG-dd-7Ij"/>
                         <outlet property="weekDayName" destination="qS7-vp-Fc2" id="Q7u-ag-faJ"/>
                         <outlet property="weeklyForecastScollview" destination="8xT-Qd-HZv" id="3w7-zt-pA1"/>
@@ -140,6 +171,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddSy" width="60" height="60"/>
+        <image name="navArrowLeft" width="25" height="40"/>
         <image name="sunny" width="147" height="145"/>
     </resources>
 </document>

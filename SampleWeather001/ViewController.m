@@ -12,17 +12,11 @@
 #import "Weather.h"
 
 @interface ViewController ()
+{
 
-@property (nonatomic, weak) IBOutlet UIScrollView *weeklyForecastScollview;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *scrollviewHeightConstraint;
+    NSInteger trailingSpace;
 
-@property (nonatomic, weak) IBOutlet UILabel *locationName;
-@property (nonatomic, weak) IBOutlet UILabel *weekDayName;
-
-@property (nonatomic, weak) IBOutlet UILabel *temp;
-
-@property (nonatomic, weak) IBOutlet UILabel *condition;
-@property (nonatomic, weak) IBOutlet UIImageView *icon;
+}
 
 @end
 
@@ -31,11 +25,20 @@
 @synthesize dayTempArray;
 @synthesize locationManager;
 @synthesize textDataLat,textDataLon;
+@synthesize expandedGuideFrame,collapsedGuideFrame,showAddView;
+@synthesize myTempScreenView,addLocationView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Do any additional setup after loading the view, typically from a nib.
+    
+    showAddView = NO;
+    
+    expandedGuideFrame = CGRectMake(myTempScreenView.frame.size.width-87, myTempScreenView.frame.size.height/2-53, 87, 66);
+    collapsedGuideFrame = CGRectMake(myTempScreenView.frame.size.width-20, myTempScreenView.frame.size.height/2-53, 25, 66);
+    
+    [addLocationView setFrame:collapsedGuideFrame];
 
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
@@ -45,8 +48,82 @@
     
     Lat = self.locationManager.location.coordinate.latitude;
     Long = self.locationManager.location.coordinate.longitude;
-//
+    
     NSLog(@"Lat : %f  Long : %f",Lat,Long);
+    
+}
+
+- (IBAction)expandGuideViewAction:(id)sender {
+    
+    showAddView =!showAddView;
+    _swipeViewTrailingConstraint.constant = showAddView?trailingSpace-60:trailingSpace;
+
+}
+
+-(void)openAlertView:(id)sender
+{
+    
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:@"Add Location"
+                               message:@""
+                               preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action)
+    {
+         showAddView =!showAddView;
+        _swipeViewTrailingConstraint.constant = showAddView?trailingSpace-60:trailingSpace;
+
+        addedLocation = alert.textFields[0];
+        NSLog(@"text was %@", addedLocation.text);
+        [self getLocationFromAddressString:addedLocation.text];
+        
+    }];
+   
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        NSLog(@"cancel btn");
+        [alert dismissViewControllerAnimated:YES completion:nil];
+        
+        showAddView =!showAddView;
+        _swipeViewTrailingConstraint.constant = showAddView?trailingSpace-60:trailingSpace;
+
+
+    }];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Please Enter Location";
+        textField.keyboardType = UIKeyboardTypeDefault;
+    }];
+    [self presentViewController:alert animated:YES completion:nil];
+
+
+}
+
+-(CLLocationCoordinate2D) getLocationFromAddressString: (NSString*) addressStr {
+    double latitude = 0, longitude = 0;
+    NSString *esc_addr =  [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *req = [NSString stringWithFormat:@"https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
+    NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
+    if (result) {
+        NSScanner *scanner = [NSScanner scannerWithString:result];
+        if ([scanner scanUpToString:@"\"lat\" :" intoString:nil] && [scanner scanString:@"\"lat\" :" intoString:nil]) {
+            [scanner scanDouble:&latitude];
+            if ([scanner scanUpToString:@"\"lng\" :" intoString:nil] && [scanner scanString:@"\"lng\" :" intoString:nil]) {
+                [scanner scanDouble:&longitude];
+            }
+        }
+    }
+    center.latitude=latitude;
+    center.longitude = longitude;
+    NSLog(@"View Controller get Location Logitute : %f",center.latitude);
+    NSLog(@"View Controller get Location Latitute : %f",center.longitude);
+    Lat = center.latitude;
+    Long = center.longitude;
+    [ self passLatandLong];
+    return center;
+    
     
 }
 
@@ -124,6 +201,9 @@
 -(void)passLatandLong
 {
     
+    NSLog(@"New Lat value: %f", Lat);
+    NSLog(@"New lon value: %f", Long);
+    
     WeatherService *weatherService = [[WeatherService alloc] init];
     [weatherService getWeeklyWeather:Lat longitude:Long completionBlock:^(NSArray * weatherData,NSString* locInfo) {
         dayTempArray = weatherData;
@@ -154,7 +234,6 @@
         });
         
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
