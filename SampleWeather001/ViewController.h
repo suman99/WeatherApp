@@ -16,7 +16,7 @@
     float Long;
     UITextField *addedLocation;
     CLLocationCoordinate2D center;
-
+    UIAlertController *alert;
 }
 
 

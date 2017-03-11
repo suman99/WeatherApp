@@ -63,8 +63,7 @@
 -(void)openAlertView:(id)sender
 {
     
-    UIAlertController *alert= [UIAlertController
-                               alertControllerWithTitle:@"Add Location"
+    alert= [UIAlertController alertControllerWithTitle:@"Add Location"
                                message:@""
                                preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
@@ -75,6 +74,21 @@
 
         addedLocation = alert.textFields[0];
         NSLog(@"text was %@", addedLocation.text);
+        if ([addedLocation.text isEqualToString:@""])
+        {
+            alert = [UIAlertController
+                     alertControllerWithTitle:@"Add Location"
+                     message:@"Please enter correct location details."
+                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* ok1 = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action)
+                                 {
+                                     
+                                 }];
+            [alert addAction:ok1];
+            [self presentViewController:alert animated:YES completion:nil];
+
+        }
         [self getLocationFromAddressString:addedLocation.text];
         
     }];
@@ -86,11 +100,11 @@
         showAddView =!showAddView;
         _swipeViewTrailingConstraint.constant = showAddView?trailingSpace-60:trailingSpace;
 
-
     }];
     
     [alert addAction:ok];
     [alert addAction:cancel];
+
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Please Enter Location";

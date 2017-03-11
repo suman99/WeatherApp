@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUSTIN, TX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9k-FC-PIb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUSTIN, TX" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9k-FC-PIb">
                                 <rect key="frame" x="10" y="20" width="274" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="BOU-Wg-eoU"/>
@@ -112,14 +112,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVf-DE-7ZG">
                                                 <rect key="frame" x="30" y="12" width="46" height="47"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" backgroundImage="AddSy"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <state key="normal" backgroundImage="Location"/>
                                                 <connections>
                                                     <action selector="openAlertView:" destination="3vD-Hy-P4m" eventType="touchUpInside" id="HIh-08-Bng"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.18620240299999999" green="0.4352403547" blue="0.65834340469999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="82" id="PVN-TS-aPH"/>
                                             <constraint firstAttribute="height" constant="71" id="nOh-ge-Wpm"/>
@@ -171,7 +171,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddSy" width="60" height="60"/>
+        <image name="Location" width="60" height="60"/>
         <image name="navArrowLeft" width="25" height="40"/>
         <image name="sunny" width="147" height="145"/>
     </resources>
