@@ -21,3 +21,6 @@ Displpaying the weather forecast based on the current location.
 2. Enable the location services from Device/Simuators.
 3. please set the location in sumulator with custom/predefined loation details as shown in below
 <img src = "/image.png"></img>
+<img src="/image1.png" style="max-width:100%;">
+<img src="/image2.png" style="max-width:100%;">
+<img src="/image3.png" style="max-width:100%;">
